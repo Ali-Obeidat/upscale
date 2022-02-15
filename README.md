@@ -5,4 +5,5 @@ The super admin can do CRUD for companies ,employees and roles. The company admi
 2- change the name .env.example file to .env.
 3- run php artisan key:generate in the terminal.
 4- create database and run php artisan migrate.
-5- run php artisan db:seed.
+5- run php artisan storag:link 
+6- run php artisan db:seed.
