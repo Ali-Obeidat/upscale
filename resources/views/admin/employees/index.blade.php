@@ -60,9 +60,10 @@
                                          
                                             @endforeach
                                         </ul>
-                                         
+                                        @if(Auth::user()->userHasRole('super admin'))
                                         <a href="{{route('employees.show',$employee->id)}}" style="padding-left: 10px;">
                                             <button class="btn btn-primary">change</button></a>
+                                            @endif
                                     </td>
                                     <td>{{$employee->created_at->diffForhumans()}}</td>
                                     <td> <a href="{{route('employees.edit',$employee->id)}}"><button class="btn btn-primary">Edit</button></a>  </td>

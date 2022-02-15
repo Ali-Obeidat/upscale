@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -17,9 +18,18 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = User::with('company')->where('id','!=',1)->paginate(5);
+        if(Auth::user()->userHasRole('super admin')){
+
+            $employees = User::with('company')->where('id','!=',1)->paginate(5);
+            return view('admin.employees.index',compact('employees'));
+        }elseif (Auth::user()->userHasRole('company admin')) {
+            $employees = User::with('company')->where('id','!=',1) ->where('company_id',Auth::user()->company_id )->paginate(5);
+
+            return view('admin.employees.index',compact('employees'));
+
+        }
+        
         // return $employees[0]->roles[0]->name;
-        return view('admin.employees.index',compact('employees'));
     }
 
     /**
@@ -30,9 +40,19 @@ class EmployeeController extends Controller
     public function create()
 
     {
-       $companies= Company::all();
-       $roles= Role::all();
-        return view('admin.employees.create',compact('companies','roles'));
+        if(Auth::user()->userHasRole('super admin')){
+
+            $companies= Company::all();
+            $roles= Role::all();
+            return view('admin.employees.create',compact('companies','roles'));
+        }elseif (Auth::user()->userHasRole('company admin')) {
+            $comp= Company::where('id',Auth::user()->company_id )->get();
+            $role= Role::where('name','employee')->get();
+            // $company= Company::all();
+            // return $role[0]->id;
+            return view('admin.employees.create',compact('comp','role'));
+
+        }
     }
 
     /**
@@ -48,7 +68,6 @@ class EmployeeController extends Controller
             'name'=> 'required',
             'email'=> 'required',
             'company_id'=>'required',
-            
             'password'=>'required'
             
         ]);

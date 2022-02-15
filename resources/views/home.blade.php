@@ -1,8 +1,9 @@
 <x-home_master>
 
 @section('content')
+
 <h1 class="my-4">Page Heading
-          <small>Secondary Text</small>
+          <small>Secondary Text </small>
         </h1>
 
     

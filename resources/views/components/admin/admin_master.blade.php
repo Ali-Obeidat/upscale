@@ -33,7 +33,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Public Site <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Upscale</div>
       </a>
 
       <!-- Divider -->
@@ -54,20 +54,7 @@
         Interface
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-          </div>
-        </div>
-      </li> -->
+  
 
       @if(Auth::user()->userHasRole('super admin'))
       <li class="nav-item">
@@ -110,7 +97,21 @@
         </div>
       </li>
 @endif
-      
+@if(Auth::user()->userHasRole('company admin'))
+<li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Employees</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Employees:</h6>
+            <a class="collapse-item" href="{{route('employees.create')}}">Create employees</a>
+            <a class="collapse-item" href="{{route('employees.index')}}">View All employees</a>
+          </div>
+        </div>
+      </li>
+      @endif
       <!-- Nav Item - Utilities Collapse Menu -->
      
 
@@ -284,7 +285,7 @@
               @endif
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{route('user.profile',Auth::user())}}">
+                <a class="dropdown-item" href="">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>

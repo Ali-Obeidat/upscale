@@ -27,35 +27,19 @@ use App\Http\Controllers\RoleController;
 
 Route::middleware('auth')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    
-    // Route::resource('/posts', 'App\Http\Controllers\PostController');
-    Route::resource('/companies', CompanyController::class,);
-    Route::resource('/employees', EmployeeController::class,);
-    Route::resource('/roles', RoleController::class,);
+    Route::resource('/employees', EmployeeController::class);
 
-    Route::get('admin/users/{user}/profile','App\Http\Controllers\userController@show')->name('user.profile');
-    Route::get('admin/users/{user}/profile','App\Http\Controllers\userController@show')->name('user.profile');
-    Route::put('admin/users/{user}/update', 'App\Http\Controllers\UserController@update')->name('user.profile.update');
-    
-    Route::get('admin/users/', 'App\Http\Controllers\UserController@index')->name('users.index');
-    Route::delete('admin/users/{id}', 'App\Http\Controllers\UserController@destroy')->name('users.destroy');
-
-    Route::put('admin/{role}/users/{id}', 'App\Http\Controllers\EmployeeController@attachRole')->name('user.attach.role');
-    Route::put('admin/{role}/users/{id}/detach', 'App\Http\Controllers\EmployeeController@detachRole')->name('user.detach.role');
 });
 Auth::routes();
 
-Route::middleware('role:Admin')->group(function(){
-   
-    
-    Route::get('admin/users/', 'App\Http\Controllers\UserController@index')->name('users.index');
+Route::middleware(['role:super admin','auth'])->group(function(){
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::resource('/companies', CompanyController::class);
+    Route::resource('/roles', RoleController::class,);
+
+    Route::put('admin/{role}/users/{id}', [EmployeeController::class ,'attachRole'])->name('user.attach.role');
+    Route::put('admin/{role}/users/{id}/detach', [EmployeeController::class,'detachRole'])->name('user.detach.role');
 
 });
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::middleware(['can:view,user','auth'])->group(function(){
-   
-    
-    Route::get('admin/users/{user}/profile','App\Http\Controllers\userController@show')->name('user.profile');
 
-});
+
