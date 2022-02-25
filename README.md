@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -64,3 +65,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+## In this application you can login with three type of user (super admin, company admin, employee).
+The super admin can do CRUD for companies ,employees and roles. The company admin can just create employee for his company.
+## To start the application first you need to do:
+1- run composer install in the terminal.
+2- change the name .env.example file to .env.
+3- run php artisan key:generate in the terminal.
+4- create database and run php artisan migrate.
+5- run php artisan storag:link 
+6- run php artisan db:seed.
+>>>>>>> 4700d3d7660cf02d83f6f62950d8d44f01c864be
